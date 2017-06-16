@@ -18,3 +18,16 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::get('/lala', 'index@index');
+
+  /* Route::group(['prefix'=>'admin','middleware'=>['auth','role::member']], function(){
+		Route::resource('authors','AuthorsController');
+	}); */
+ 
+
+ Route::group(['middleware'=>'web'], function(){
+	Route::group(['prefix'=>'admin','middleware'=>['auth','role:admin']], function(){
+	Route::resource('authors','AuthorsController');
+	}); 
+}); 

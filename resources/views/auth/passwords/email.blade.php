@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
+            <div class="panel " style="background-color: rgba(255,255,255,0.9);">
                 <div class="panel-heading">Reset Password</div>
                 <div class="panel-body">
                     @if (session('status'))
@@ -26,7 +26,7 @@
                         <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
                             <button type="submit" class="btn btn-primary">
-                                <i class="fa fa-btn fa-envelope"></i>Kirim link reset password
+                                <i class="fa fa-btn fa-envelope"></i> Kirim link reset password
                             </button>
                         </div>
                     </div>
