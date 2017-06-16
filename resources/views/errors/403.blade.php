@@ -40,7 +40,7 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">:(</div>
+                <div class="title">404 :(</div>
                 <p>Maaf anda tidak memiliki akses untuk fitur ini</p>
                 <p> <a href="{{url('/home')}}"> Kembali ke halaman awal</a> </p>
             </div>

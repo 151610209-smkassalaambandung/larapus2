@@ -113,7 +113,7 @@
                 </div>
             </div>
         </nav>
-
+        @include('layouts._flash')
         @yield('content')
     </div>
 
@@ -123,6 +123,7 @@
     <script src="/js/jquery.dataTables.min.js"></script>
     <script src="/js/dataTables.bootstrap.min.js"></script>
     @yield('script')
+    
     <center>
     <!--
     <link href="/css/app.css" rel="stylesheet">
