@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Yajra\Datatables\Html\Builder;
 use Yajra\Datatables\Datatables;
 use App\Book;
+use Illuminate\Support\Facades\Session;
 
 class BooksController extends Controller
 {
@@ -47,7 +48,7 @@ class BooksController extends Controller
      */
     public function create()
     {
-        //
+        return view('books.create');
     }
 
     /**
@@ -58,7 +59,40 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'title'=>'required|unique:books,title',
+            'author_id'=>'required|exists:authors,id',
+            'amount'=>'required|numeric',
+            'cover' =>'image'
+            ]);
+        $book = Book::create($request->except('cover'));
+        //isi field cover jika ada cover yang inngin di upload
+        if($request->hasFile('cover'))
+        {
+            //Mengambil File yang di upload
+            $uploaded_cover = $request->file('cover');
+
+            //mengambil extension file
+            $extension = $uploaded_cover->getClientOriginalExtension();
+
+            //membuat nama file random berikut extesion
+            $filename=md5(time()).'.'.$extesion;
+
+            //menyimpan cover ke folder public/img
+            $destinationPath = public_path().DIRECTORY_SEPARATOR.'img';
+            $uploaded_cover->move($destinationPath,$filename);
+
+            //mengisi fild cover di book dengan filename yang baru dibuat
+            $book->cover=$filename;
+            $book=save();
+        }
+
+        Session::flash("flash_notification", [
+                "level"=>"succes",
+                "message"=>"Berhasil menyimpan $book->title"
+            ]);
+        return redirect('admin/books');
+        
     }
 
     /**
@@ -80,7 +114,8 @@ class BooksController extends Controller
      */
     public function edit($id)
     {
-        //
+        $author = Book::find($id);
+        return view('book.edit')->with(compact('book'));
     }
 
     /**
